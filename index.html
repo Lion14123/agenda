@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="js/Vue3.js"></script>
+    <title>Agenda</title>
+</head>
+<body>
+    <header>
+		<h1>Agenda Telefonica</h1>
+    </header>
+    
+    <section id="seccion" class="container">
+      <label>Agrega un contacto:</label><br>
+      <p>Nombre</p>
+        <input type="text" v-model="nombre" @keyup.enter="agregar()"><br>
+        <p>Numero</p>
+        <input type="text" v-model="telefono" @keyup.enter="agregar()"><br>
+        <p>Tipo de contacto</p>
+        <select v-model="tipo" @keyup.enter="agregar()">
+          <option value="Familiar">familia</option>
+          <option value="Amistad">compa</option>
+          <option value="Laboral">trabajo</option>
+        </select><br>
+      <button @click="agregar()">Agregar</button><br>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nombre</th>
+            <th>Teléfono</th> 
+            <th>Categoría</th> 
+            <th>Mensajes</th> 
+            <th>Llamadas</th> 
+          </tr> 
+        </thead> 
+        <tbody> 
+          <tr v-for="(con, index) in contacto" :key="index">
+            <td><button @click="borrar(index)">X</button></td>
+            <td>{{ con.nombre }}</td> 
+            <td>{{ con.telefono }}</td> 
+            <td>{{ con.tipo }}</td> 
+            <td> 
+                <button @click="con.mensajes++" :disabled="con.mensajes == 25">+</button>
+                {{con.mensajes}}
+                <button @click="con.mensajes--" :disabled="con.mensajes == 0">-</button>
+            </td> 
+            <td> 
+                <button @click="con.llamadas++" :disabled="con.llamadas == 15">+</button>
+                {{con.llamadas}}
+                <button @click="con.llamadas--" :disabled="con.llamadas == 0">-</button>
+            </td>
+        </tr>
+        
+        </tbody> 
+      </table>
+      total de contactos: {{cantidadContactos}}-----------------
+      {{totalMensajes}}-----------
+      {{totalLlamadas}}
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
